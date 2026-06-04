@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KAYA SAFETY LATINOAMÉRICA | Certificados de Instalación</title>
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+  <script src="assets/js/app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="panel form-panel no-print">
+      <div class="brand-card">
+        <div class="logo-mark">KAYA</div>
+        <div>
+          <h1>Emisor de Certificados</h1>
+          <p>KAYA SAFETY LATINOAMÉRICA</p>
+        </div>
+      </div>
+
+      <div class="actions top-actions">
+        <button type="button" id="btnPrint">Guardar / Imprimir PDF</button>
+        <button type="button" class="secondary" id="btnClear">Nuevo certificado</button>
+      </div>
+
+      <form id="certificateForm">
+        <h2>Datos del certificado</h2>
+        <div class="grid two">
+          <label>Consecutivo
+            <input id="consecutivo" name="consecutivo" value="KAYA-LATAM-2026-001" />
+          </label>
+          <label>Fecha de emisión
+            <input id="fecha" name="fecha" type="date" />
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label>País
+            <select id="pais" name="pais">
+              <option value="Colombia" data-flag="🇨🇴">Colombia</option>
+              <option value="Ecuador" data-flag="🇪🇨">Ecuador</option>
+              <option value="Perú" data-flag="🇵🇪">Perú</option>
+              <option value="Bolivia" data-flag="🇧🇴">Bolivia</option>
+              <option value="Paraguay" data-flag="🇵🇾">Paraguay</option>
+              <option value="Brasil" data-flag="🇧🇷">Brasil</option>
+              <option value="Panamá" data-flag="🇵🇦">Panamá</option>
+              <option value="Costa Rica" data-flag="🇨🇷">Costa Rica</option>
+              <option value="México" data-flag="🇲🇽">México</option>
+              <option value="Chile" data-flag="🇨🇱">Chile</option>
+              <option value="Argentina" data-flag="🇦🇷">Argentina</option>
+            </select>
+          </label>
+          <label>Ciudad
+            <input id="ciudad" name="ciudad" placeholder="Bogotá D.C." />
+          </label>
+        </div>
+
+        <h2>Cliente e instalación</h2>
+        <label>Empresa / Cliente
+          <input id="cliente" name="cliente" placeholder="Nombre del cliente" />
+        </label>
+        <label>Proyecto / Ubicación de la instalación
+          <input id="proyecto" name="proyecto" placeholder="Proyecto, planta, edificio o área" />
+        </label>
+        <div class="grid two">
+          <label>Tipo de sistema instalado
+            <input id="sistema" name="sistema" placeholder="Línea de vida / anclaje / sistema vertical" />
+          </label>
+          <label>Referencia / Modelo
+            <input id="referencia" name="referencia" placeholder="Ej. RVL100A / K2010A" />
+          </label>
+        </div>
+        <label>Descripción técnica de la instalación
+          <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describa componentes, ubicación, cantidad, norma aplicable y observaciones técnicas."></textarea>
+        </label>
+
+        <h2>Responsables</h2>
+        <div class="grid two">
+          <label>Instalador / Empresa instaladora
+            <input id="instalador" name="instalador" placeholder="Nombre del instalador" />
+          </label>
+          <label>Responsable técnico
+            <input id="responsable" name="responsable" value="Departamento de Proyectos e Ingeniería" />
+          </label>
+        </div>
+        <label>Observaciones finales
+          <textarea id="observaciones" name="observaciones" rows="3" placeholder="Observaciones, recomendaciones o restricciones de uso."></textarea>
+        </label>
+
+        <div class="approval-box">
+          <label class="checkline">
+            <input id="aprobado" name="aprobado" type="checkbox" checked />
+            Instalación aprobada / conforme
+          </label>
+        </div>
+      </form>
+    </section>
+
+    <section class="certificate-page" id="certificatePreview">
+      <div class="watermark">KAYA SAFETY</div>
+      <header class="cert-header">
+        <div class="cert-logo">KAYA<br><span>SAFETY</span></div>
+        <div class="cert-title">
+          <h2>CERTIFICADO DE INSTALACIÓN</h2>
+          <p>KAYA SAFETY LATINOAMÉRICA</p>
+          <strong>DEPARTAMENTO DE PROYECTOS E INGENIERÍA</strong>
+        </div>
+        <div class="country-card">
+          <span id="vFlag">🇨🇴</span>
+          <small id="vPais">Colombia</small>
+        </div>
+      </header>
+
+      <div class="meta-row">
+        <div><span>Consecutivo</span><strong id="vConsecutivo">KAYA-LATAM-2026-001</strong></div>
+        <div><span>Fecha</span><strong id="vFecha">--</strong></div>
+        <div><span>Ciudad</span><strong id="vCiudad">--</strong></div>
+      </div>
+
+      <section class="cert-body">
+        <h3>Certifica que</h3>
+        <p class="lead">
+          El sistema descrito a continuación fue instalado y verificado conforme a los criterios técnicos del fabricante, las condiciones del proyecto y las buenas prácticas de ingeniería aplicables para sistemas de protección contra caídas.
+        </p>
+
+        <div class="info-table">
+          <div><b>Cliente / Empresa</b><span id="vCliente">--</span></div>
+          <div><b>Proyecto / Ubicación</b><span id="vProyecto">--</span></div>
+          <div><b>Tipo de sistema</b><span id="vSistema">--</span></div>
+          <div><b>Referencia / Modelo</b><span id="vReferencia">--</span></div>
+          <div class="wide"><b>Descripción técnica</b><span id="vDescripcion">--</span></div>
+          <div><b>Instalador</b><span id="vInstalador">--</span></div>
+          <div><b>Responsable técnico</b><span id="vResponsable">--</span></div>
+          <div class="wide"><b>Observaciones</b><span id="vObservaciones">--</span></div>
+        </div>
+
+        <div class="approval-stamp" id="approvalStamp">
+          <div class="checkmark">✓</div>
+          <div>
+            <strong>INSTALACIÓN APROBADA</strong>
+            <span>Conforme a verificación técnica visual y documental.</span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="cert-footer">
+        <div class="signature">
+          <div class="signature-line"></div>
+          <strong>Departamento de Proyectos e Ingeniería</strong>
+          <span>KAYA SAFETY LATINOAMÉRICA</span>
+        </div>
+        <div class="qr-wrap">
+          <div id="qrcode"></div>
+          <small>Verificación QR</small>
+        </div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
