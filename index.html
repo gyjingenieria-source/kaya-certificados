@@ -12,7 +12,7 @@
   <main class="app-shell">
     <section class="panel form-panel no-print">
       <div class="brand-card">
-        <div class="logo-mark">KAYA</div>
+        <img class="brand-logo" src="assets/img/logo-kaya.svg" alt="KAYA SAFETY" />
         <div>
           <h1>Emisor de Certificados</h1>
           <p>KAYA SAFETY LATINOAMÉRICA</p>
@@ -36,19 +36,19 @@
         </div>
 
         <div class="grid two">
-          <label>País
+          <label>País / bandera
             <select id="pais" name="pais">
-              <option value="Colombia" data-flag="🇨🇴">Colombia</option>
-              <option value="Ecuador" data-flag="🇪🇨">Ecuador</option>
-              <option value="Perú" data-flag="🇵🇪">Perú</option>
-              <option value="Bolivia" data-flag="🇧🇴">Bolivia</option>
-              <option value="Paraguay" data-flag="🇵🇾">Paraguay</option>
-              <option value="Brasil" data-flag="🇧🇷">Brasil</option>
-              <option value="Panamá" data-flag="🇵🇦">Panamá</option>
-              <option value="Costa Rica" data-flag="🇨🇷">Costa Rica</option>
-              <option value="México" data-flag="🇲🇽">México</option>
-              <option value="Chile" data-flag="🇨🇱">Chile</option>
-              <option value="Argentina" data-flag="🇦🇷">Argentina</option>
+              <option value="Colombia" data-flag="🇨🇴">🇨🇴 Colombia</option>
+              <option value="Ecuador" data-flag="🇪🇨">🇪🇨 Ecuador</option>
+              <option value="Perú" data-flag="🇵🇪">🇵🇪 Perú</option>
+              <option value="Bolivia" data-flag="🇧🇴">🇧🇴 Bolivia</option>
+              <option value="Paraguay" data-flag="🇵🇾">🇵🇾 Paraguay</option>
+              <option value="Brasil" data-flag="🇧🇷">🇧🇷 Brasil</option>
+              <option value="Panamá" data-flag="🇵🇦">🇵🇦 Panamá</option>
+              <option value="Costa Rica" data-flag="🇨🇷">🇨🇷 Costa Rica</option>
+              <option value="México" data-flag="🇲🇽">🇲🇽 México</option>
+              <option value="Chile" data-flag="🇨🇱">🇨🇱 Chile</option>
+              <option value="Argentina" data-flag="🇦🇷">🇦🇷 Argentina</option>
             </select>
           </label>
           <label>Ciudad
@@ -65,27 +65,30 @@
         </label>
         <div class="grid two">
           <label>Tipo de sistema instalado
-            <input id="sistema" name="sistema" placeholder="Línea de vida / anclaje / sistema vertical" />
+            <input id="sistema" name="sistema" value="Línea de vida horizontal K2010A" />
           </label>
           <label>Referencia / Modelo
-            <input id="referencia" name="referencia" placeholder="Ej. RVL100A / K2010A" />
+            <input id="referencia" name="referencia" value="K2010A" />
           </label>
         </div>
         <label>Descripción técnica de la instalación
-          <textarea id="descripcion" name="descripcion" rows="4" placeholder="Describa componentes, ubicación, cantidad, norma aplicable y observaciones técnicas."></textarea>
+          <textarea id="descripcion" name="descripcion" rows="4">Sistema de línea de vida horizontal K2010A KAYA SAFETY instalado para tránsito seguro de usuarios conectados mediante carro compatible, con verificación visual de componentes, terminales, intermedios, cable y señalización.</textarea>
         </label>
 
-        <h2>Responsables</h2>
+        <h2>Responsables y firmante</h2>
         <div class="grid two">
           <label>Instalador / Empresa instaladora
             <input id="instalador" name="instalador" placeholder="Nombre del instalador" />
           </label>
           <label>Responsable técnico
-            <input id="responsable" name="responsable" value="Departamento de Proyectos e Ingeniería" />
+            <input id="responsable" name="responsable" value="Ing. Gerardo Montañez" />
           </label>
         </div>
+        <label>Cargo del responsable técnico
+          <input id="cargoResponsable" name="cargoResponsable" value="Representante Técnico para Latinoamérica" />
+        </label>
         <label>Observaciones finales
-          <textarea id="observaciones" name="observaciones" rows="3" placeholder="Observaciones, recomendaciones o restricciones de uso."></textarea>
+          <textarea id="observaciones" name="observaciones" rows="3">Certificado sujeto a uso, inspección, mantenimiento y condiciones de instalación indicadas por el fabricante y por el responsable técnico del proyecto.</textarea>
         </label>
 
         <div class="approval-box">
@@ -94,19 +97,34 @@
             Instalación aprobada / conforme
           </label>
         </div>
+
+        <h2>Referencias usadas K2010A</h2>
+        <p class="form-note">Coloca la cantidad utilizada. La tabla se imprime en la segunda hoja del certificado.</p>
+        <div class="materials-form">
+          <label>ANB 100 A <input class="material-input" id="qty-ANB100A" data-ref="ANB 100 A" data-desc="Anclaje principal del sistema K2010A" type="number" min="0" value="2"></label>
+          <label>ARB 100A <input class="material-input" id="qty-ARB100A" data-ref="ARB 100A" data-desc="Anclaje intermedio recto" type="number" min="0" value="0"></label>
+          <label>ARB 100A C1 <input class="material-input" id="qty-ARB100AC1" data-ref="ARB 100A C1" data-desc="Anclaje intermedio curvo / cambio de dirección" type="number" min="0" value="0"></label>
+          <label>EA-200 EN <input class="material-input" id="qty-EA200EN" data-ref="EA-200 EN" data-desc="Amortiguador / absorbedor extremo" type="number" min="0" value="1"></label>
+          <label>EA-200 CA <input class="material-input" id="qty-EA200CA" data-ref="EA-200 CA" data-desc="Conjunto amortiguador / tensor extremo" type="number" min="0" value="1"></label>
+          <label>LL-200A <input class="material-input" id="qty-LL200A" data-ref="LL-200A" data-desc="Cable de acero inoxidable AISI 316" type="number" min="0" value="0"></label>
+          <label>SRY-50 <input class="material-input" id="qty-SRY50" data-ref="SRY-50" data-desc="Carro / dispositivo de desplazamiento" type="number" min="0" value="0"></label>
+          <label>SRY-200 <input class="material-input" id="qty-SRY200" data-ref="SRY-200" data-desc="Carro / accesorio del sistema" type="number" min="0" value="0"></label>
+        </div>
       </form>
     </section>
 
-    <section class="certificate-page" id="certificatePreview">
-      <div class="watermark">KAYA SAFETY</div>
+    <section class="certificate-page page-one" id="certificatePreview">
+      <img class="logo-watermark" src="assets/img/logo-kaya.svg" alt="" />
       <header class="cert-header">
-        <div class="cert-logo">KAYA<br><span>SAFETY</span></div>
+        <img class="cert-logo-img" src="assets/img/logo-kaya.svg" alt="KAYA SAFETY" />
         <div class="cert-title">
+          <span class="eyebrow">Documento técnico de conformidad de instalación</span>
           <h2>CERTIFICADO DE INSTALACIÓN</h2>
           <p>KAYA SAFETY LATINOAMÉRICA</p>
           <strong>DEPARTAMENTO DE PROYECTOS E INGENIERÍA</strong>
         </div>
         <div class="country-card">
+          <span class="label">BANDERA</span>
           <span id="vFlag">🇨🇴</span>
           <small id="vPais">Colombia</small>
         </div>
@@ -116,6 +134,11 @@
         <div><span>Consecutivo</span><strong id="vConsecutivo">KAYA-LATAM-2026-001</strong></div>
         <div><span>Fecha</span><strong id="vFecha">--</strong></div>
         <div><span>Ciudad</span><strong id="vCiudad">--</strong></div>
+      </div>
+
+      <div class="qr-top">
+        <div class="qrcode"></div>
+        <small>QR de verificación</small>
       </div>
 
       <section class="cert-body">
@@ -128,11 +151,19 @@
           <div><b>Cliente / Empresa</b><span id="vCliente">--</span></div>
           <div><b>Proyecto / Ubicación</b><span id="vProyecto">--</span></div>
           <div><b>Tipo de sistema</b><span id="vSistema">--</span></div>
-          <div><b>Referencia / Modelo</b><span id="vReferencia">--</span></div>
+          <div><b>Referencia / Modelo</b><span id="vReferencia">K2010A</span></div>
           <div class="wide"><b>Descripción técnica</b><span id="vDescripcion">--</span></div>
           <div><b>Instalador</b><span id="vInstalador">--</span></div>
-          <div><b>Responsable técnico</b><span id="vResponsable">--</span></div>
+          <div><b>Responsable técnico</b><span id="vResponsable">Ing. Gerardo Montañez</span></div>
+          <div><b>Cargo</b><span id="vCargoResponsable">Representante Técnico para Latinoamérica</span></div>
           <div class="wide"><b>Observaciones</b><span id="vObservaciones">--</span></div>
+        </div>
+
+        <div class="technical-band">
+          <div><b>Norma base</b><span>EN 795:2012 Tipo C / CEN/TS 16415:2013 Tipo C</span></div>
+          <div><b>Referencia</b><span>K2010A</span></div>
+          <div><b>Material</b><span>Acero inoxidable AISI 316</span></div>
+          <div><b>Uso técnico</b><span>Línea horizontal con carro de desplazamiento</span></div>
         </div>
 
         <div class="approval-stamp" id="approvalStamp">
@@ -146,13 +177,74 @@
 
       <footer class="cert-footer">
         <div class="signature">
+          <div class="script-signature">Gerardo Montañez</div>
           <div class="signature-line"></div>
-          <strong>Departamento de Proyectos e Ingeniería</strong>
+          <strong>Ing. Gerardo Montañez</strong>
+          <span>Representante Técnico para Latinoamérica</span>
           <span>KAYA SAFETY LATINOAMÉRICA</span>
         </div>
         <div class="qr-wrap">
-          <div id="qrcode"></div>
+          <div class="qrcode"></div>
           <small>Verificación QR</small>
+        </div>
+      </footer>
+    </section>
+
+    <section class="certificate-page page-two">
+      <img class="logo-watermark watermark-page-two" src="assets/img/logo-kaya.svg" alt="" />
+      <header class="cert-header compact">
+        <img class="cert-logo-img" src="assets/img/logo-kaya.svg" alt="KAYA SAFETY" />
+        <div class="cert-title">
+          <span class="eyebrow">Anexo técnico del certificado</span>
+          <h2>REFERENCIAS UTILIZADAS EN EL SISTEMA</h2>
+          <p>K2010A · KAYA SAFETY</p>
+        </div>
+        <div class="country-card">
+          <span class="label">PAÍS</span>
+          <span id="vFlag2">🇨🇴</span>
+          <small id="vPais2">Colombia</small>
+        </div>
+      </header>
+
+      <div class="annex-intro">
+        <h3>Listado de componentes declarados para la instalación</h3>
+        <p>
+          Las siguientes referencias corresponden a los componentes del sistema K2010A utilizados o previstos para la configuración instalada. Las cantidades son editables desde el formulario principal.
+        </p>
+      </div>
+
+      <table class="materials-table">
+        <thead>
+          <tr>
+            <th>Cant.</th>
+            <th>Referencia</th>
+            <th>Descripción técnica</th>
+            <th>Observación</th>
+          </tr>
+        </thead>
+        <tbody id="materialsBody"></tbody>
+      </table>
+
+      <section class="system-notes">
+        <h3>Notas técnicas K2010A</h3>
+        <ul>
+          <li>Sistema de línea de vida horizontal certificado para conexión continua mediante carro compatible.</li>
+          <li>Componentes fabricados en acero inoxidable calidad AISI 316 para alta resistencia a corrosión.</li>
+          <li>La configuración debe revisarse según plano, longitud, número de usuarios, estructura portante, terminales e intermedios instalados.</li>
+          <li>El certificado no reemplaza inspecciones periódicas, mantenimiento ni recertificación cuando aplique.</li>
+        </ul>
+      </section>
+
+      <footer class="cert-footer annex-footer">
+        <div class="signature">
+          <div class="script-signature">Gerardo Montañez</div>
+          <div class="signature-line"></div>
+          <strong>Ing. Gerardo Montañez</strong>
+          <span>Representante Técnico para Latinoamérica</span>
+        </div>
+        <div class="qr-wrap">
+          <div class="qrcode"></div>
+          <small>QR de certificado</small>
         </div>
       </footer>
     </section>
