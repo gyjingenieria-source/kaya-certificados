@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KAYA SAFETY LATINOAMÉRICA | Certificados de Instalación</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
   <script src="assets/js/app.js" defer></script>
 </head>
 <body>
   <main class="app-shell">
     <section class="panel form-panel no-print">
       <div class="brand-card">
-        <img class="brand-logo" src="assets/img/logo-kaya.svg" alt="KAYA SAFETY" />
+        <img class="brand-logo kaya-logo" alt="KAYA SAFETY" />
         <div>
           <h1>Emisor de Certificados</h1>
           <p>KAYA SAFETY LATINOAMÉRICA</p>
@@ -38,17 +37,17 @@
         <div class="grid two">
           <label>País / bandera
             <select id="pais" name="pais">
-              <option value="Colombia" data-flag="🇨🇴">🇨🇴 Colombia</option>
-              <option value="Ecuador" data-flag="🇪🇨">🇪🇨 Ecuador</option>
-              <option value="Perú" data-flag="🇵🇪">🇵🇪 Perú</option>
-              <option value="Bolivia" data-flag="🇧🇴">🇧🇴 Bolivia</option>
-              <option value="Paraguay" data-flag="🇵🇾">🇵🇾 Paraguay</option>
-              <option value="Brasil" data-flag="🇧🇷">🇧🇷 Brasil</option>
-              <option value="Panamá" data-flag="🇵🇦">🇵🇦 Panamá</option>
-              <option value="Costa Rica" data-flag="🇨🇷">🇨🇷 Costa Rica</option>
-              <option value="México" data-flag="🇲🇽">🇲🇽 México</option>
-              <option value="Chile" data-flag="🇨🇱">🇨🇱 Chile</option>
-              <option value="Argentina" data-flag="🇦🇷">🇦🇷 Argentina</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="Perú">Perú</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Brasil">Brasil</option>
+              <option value="Panamá">Panamá</option>
+              <option value="Costa Rica">Costa Rica</option>
+              <option value="México">México</option>
+              <option value="Chile">Chile</option>
+              <option value="Argentina">Argentina</option>
             </select>
           </label>
           <label>Ciudad
@@ -114,9 +113,9 @@
     </section>
 
     <section class="certificate-page page-one" id="certificatePreview">
-      <img class="logo-watermark" src="assets/img/logo-kaya.svg" alt="" />
+      <img class="logo-watermark kaya-logo" alt="" />
       <header class="cert-header">
-        <img class="cert-logo-img" src="assets/img/logo-kaya.svg" alt="KAYA SAFETY" />
+        <img class="cert-logo-img kaya-logo" alt="KAYA SAFETY" />
         <div class="cert-title">
           <span class="eyebrow">Documento técnico de conformidad de instalación</span>
           <h2>CERTIFICADO DE INSTALACIÓN</h2>
@@ -125,8 +124,12 @@
         </div>
         <div class="country-card">
           <span class="label">BANDERA</span>
-          <span id="vFlag">🇨🇴</span>
+          <div id="vFlag" class="flag-visual"></div>
           <small id="vPais">Colombia</small>
+        </div>
+        <div class="qr-card">
+          <img class="qr-img" alt="Código QR de verificación" />
+          <small>QR de verificación</small>
         </div>
       </header>
 
@@ -134,11 +137,6 @@
         <div><span>Consecutivo</span><strong id="vConsecutivo">KAYA-LATAM-2026-001</strong></div>
         <div><span>Fecha</span><strong id="vFecha">--</strong></div>
         <div><span>Ciudad</span><strong id="vCiudad">--</strong></div>
-      </div>
-
-      <div class="qr-top">
-        <div class="qrcode"></div>
-        <small>QR de verificación</small>
       </div>
 
       <section class="cert-body">
@@ -183,17 +181,17 @@
           <span>Representante Técnico para Latinoamérica</span>
           <span>KAYA SAFETY LATINOAMÉRICA</span>
         </div>
-        <div class="qr-wrap">
-          <div class="qrcode"></div>
-          <small>Verificación QR</small>
+        <div class="footer-verify">
+          <img class="qr-img" alt="Código QR de verificación" />
+          <small>QR de certificado</small>
         </div>
       </footer>
     </section>
 
     <section class="certificate-page page-two">
-      <img class="logo-watermark watermark-page-two" src="assets/img/logo-kaya.svg" alt="" />
+      <img class="logo-watermark watermark-page-two kaya-logo" alt="" />
       <header class="cert-header compact">
-        <img class="cert-logo-img" src="assets/img/logo-kaya.svg" alt="KAYA SAFETY" />
+        <img class="cert-logo-img kaya-logo" alt="KAYA SAFETY" />
         <div class="cert-title">
           <span class="eyebrow">Anexo técnico del certificado</span>
           <h2>REFERENCIAS UTILIZADAS EN EL SISTEMA</h2>
@@ -201,8 +199,12 @@
         </div>
         <div class="country-card">
           <span class="label">PAÍS</span>
-          <span id="vFlag2">🇨🇴</span>
+          <div id="vFlag2" class="flag-visual"></div>
           <small id="vPais2">Colombia</small>
+        </div>
+        <div class="qr-card">
+          <img class="qr-img" alt="Código QR de verificación" />
+          <small>QR de certificado</small>
         </div>
       </header>
 
@@ -242,8 +244,8 @@
           <strong>Ing. Gerardo Montañez</strong>
           <span>Representante Técnico para Latinoamérica</span>
         </div>
-        <div class="qr-wrap">
-          <div class="qrcode"></div>
+        <div class="footer-verify">
+          <img class="qr-img" alt="Código QR de verificación" />
           <small>QR de certificado</small>
         </div>
       </footer>
