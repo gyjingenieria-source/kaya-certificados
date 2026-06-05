@@ -1,6 +1,11 @@
 const form = document.getElementById('certificateForm');
-const qrContainers = document.querySelectorAll('.qrcode');
 const materialInputs = Array.from(document.querySelectorAll('.material-input'));
+const qrImages = Array.from(document.querySelectorAll('.qr-img'));
+const kayaLogoImages = Array.from(document.querySelectorAll('.kaya-logo'));
+
+const KAYA_LOGO_URL = 'assets/img/logo-kaya.svg?v=20260604-03';
+const FLAG_BASE_URL = 'https://flagcdn.com';
+const QR_BASE_URL = 'https://quickchart.io/qr';
 
 const fields = {
   consecutivo: document.getElementById('consecutivo'),
@@ -50,9 +55,49 @@ function formatDate(dateValue) {
   return `${day}/${month}/${year}`;
 }
 
-function getSelectedFlag() {
-  const option = fields.pais.options[fields.pais.selectedIndex];
-  return option ? option.dataset.flag || '🏳️' : '🏳️';
+function getSelectedOption() {
+  return fields.pais.options[fields.pais.selectedIndex];
+}
+
+function getSelectedCountryCode() {
+  const option = getSelectedOption();
+  return option ? option.dataset.code || 'co' : 'co';
+}
+
+function getSelectedCountryName() {
+  const option = getSelectedOption();
+  return option ? option.value : 'Colombia';
+}
+
+function updateLogoImages() {
+  kayaLogoImages.forEach((img) => {
+    img.src = KAYA_LOGO_URL;
+  });
+}
+
+function updateFlags() {
+  const country = getSelectedCountryName();
+  const code = getSelectedCountryCode();
+  const flagUrl = `${FLAG_BASE_URL}/${code}.svg`;
+
+  [preview.flag, preview.flag2].forEach((img) => {
+    if (!img) return;
+    img.src = flagUrl;
+    img.alt = `Bandera de ${country}`;
+    img.loading = 'eager';
+    img.decoding = 'sync';
+  });
+
+  preview.pais.textContent = country;
+  preview.pais2.textContent = country;
+}
+
+function getMaterials() {
+  return materialInputs.map((input) => ({
+    qty: input.value === '' ? 0 : Number(input.value),
+    ref: input.dataset.ref,
+    desc: input.dataset.desc,
+  }));
 }
 
 function buildQrPayload() {
@@ -70,36 +115,25 @@ function buildQrPayload() {
     `Proyecto: ${valueOrDash(fields.proyecto.value)}`,
     `Sistema: ${valueOrDash(fields.sistema.value)}`,
     `Referencia: ${valueOrDash(fields.referencia.value)}`,
-    `País: ${fields.pais.value}`,
+    `País: ${getSelectedCountryName()}`,
     `Firmante: ${valueOrDash(fields.responsable.value)} - ${valueOrDash(fields.cargoResponsable.value)}`,
     `Estado: ${fields.aprobado.checked ? 'Instalación aprobada' : 'Pendiente de aprobación'}`,
     `Componentes: ${materials || 'Sin cantidades declaradas'}`,
   ].join('\n');
 }
 
-function renderQr() {
-  qrContainers.forEach((container) => {
-    container.innerHTML = '';
-    if (typeof QRCode === 'undefined') {
-      container.textContent = 'QR';
-      container.title = buildQrPayload();
-      return;
-    }
-    new QRCode(container, {
-      text: buildQrPayload(),
-      width: 98,
-      height: 98,
-      correctLevel: QRCode.CorrectLevel.M,
-    });
-  });
+function buildQrUrl() {
+  const payload = encodeURIComponent(buildQrPayload());
+  return `${QR_BASE_URL}?text=${payload}&size=180&margin=2&ecLevel=M&format=png`;
 }
 
-function getMaterials() {
-  return materialInputs.map((input) => ({
-    qty: input.value === '' ? 0 : Number(input.value),
-    ref: input.dataset.ref,
-    desc: input.dataset.desc,
-  }));
+function renderQr() {
+  const qrUrl = buildQrUrl();
+  qrImages.forEach((img) => {
+    img.src = qrUrl;
+    img.loading = 'eager';
+    img.decoding = 'sync';
+  });
 }
 
 function renderMaterialsTable() {
@@ -119,13 +153,19 @@ function renderMaterialsTable() {
   });
 }
 
+function updateApprovalStamp() {
+  preview.approvalStamp.classList.toggle('hidden', !fields.aprobado.checked);
+  const stampText = preview.approvalStamp.querySelector('strong');
+  const stampSubtext = preview.approvalStamp.querySelector('span');
+  stampText.textContent = fields.aprobado.checked ? 'INSTALACIÓN APROBADA' : 'PENDIENTE DE APROBACIÓN';
+  stampSubtext.textContent = fields.aprobado.checked
+    ? 'Conforme a verificación técnica visual y documental.'
+    : 'El certificado requiere validación final antes de su emisión.';
+}
+
 function updatePreview() {
   preview.consecutivo.textContent = valueOrDash(fields.consecutivo.value);
   preview.fecha.textContent = formatDate(fields.fecha.value);
-  preview.pais.textContent = fields.pais.value;
-  preview.pais2.textContent = fields.pais.value;
-  preview.flag.textContent = getSelectedFlag();
-  preview.flag2.textContent = getSelectedFlag();
   preview.ciudad.textContent = valueOrDash(fields.ciudad.value);
   preview.cliente.textContent = valueOrDash(fields.cliente.value);
   preview.proyecto.textContent = valueOrDash(fields.proyecto.value);
@@ -137,14 +177,9 @@ function updatePreview() {
   preview.cargoResponsable.textContent = valueOrDash(fields.cargoResponsable.value);
   preview.observaciones.textContent = valueOrDash(fields.observaciones.value);
 
-  preview.approvalStamp.classList.toggle('hidden', !fields.aprobado.checked);
-  const stampText = preview.approvalStamp.querySelector('strong');
-  const stampSubtext = preview.approvalStamp.querySelector('span');
-  stampText.textContent = fields.aprobado.checked ? 'INSTALACIÓN APROBADA' : 'PENDIENTE DE APROBACIÓN';
-  stampSubtext.textContent = fields.aprobado.checked
-    ? 'Conforme a verificación técnica visual y documental.'
-    : 'El certificado requiere validación final antes de su emisión.';
-
+  updateLogoImages();
+  updateFlags();
+  updateApprovalStamp();
   renderMaterialsTable();
   renderQr();
   persistForm();
@@ -196,9 +231,10 @@ function setTodayIfEmpty() {
 
 function clearForm() {
   if (!confirm('¿Desea limpiar el formulario para crear un nuevo certificado?')) return;
+  const nextConsecutive = suggestNextConsecutive();
   form.reset();
   localStorage.removeItem('kayaCertificateDraft');
-  fields.consecutivo.value = suggestNextConsecutive();
+  fields.consecutivo.value = nextConsecutive;
   fields.sistema.value = 'Línea de vida horizontal K2010A';
   fields.referencia.value = 'K2010A';
   fields.responsable.value = 'Ing. Gerardo Montañez';
