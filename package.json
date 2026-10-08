@@ -1,0 +1,13 @@
+{
+  "name": "kaya-certificados",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Generador corporativo KAYA con validación previa a la emisión",
+  "scripts": {
+    "test": "node --test tests/validation.test.cjs",
+    "test:browser": "node --test tests/browser.test.cjs",
+    "test:all": "npm test && npm run test:browser"
+  },
+  "engines": { "node": ">=22" },
+  "devDependencies": { "playwright": "1.62.1" }
+}
