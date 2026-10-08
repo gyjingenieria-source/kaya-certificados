@@ -101,7 +101,7 @@ textarea { resize: vertical; }
   gap: 12px;
 }
 
-.actions { display: flex; gap: 10px; margin: 12px 0 20px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 20px; }
 
 button {
   border: 0;
@@ -121,6 +121,47 @@ button.secondary {
   box-shadow: none;
 }
 
+button:disabled { opacity: 0.6; cursor: wait; }
+input[readonly] { background: #f3f4f6; color: var(--muted); }
+[aria-invalid="true"] { border-color: #b42318; outline-color: #b42318; }
+.emission-status { font-size: 13px; padding: 12px; border-left: 4px solid var(--orange); background: var(--soft); }
+.validation-summary { border: 2px solid #b42318; border-radius: 12px; padding: 12px; background: #fff5f4; font-size: 13px; }
+.validation-summary ul { padding-left: 20px; margin-bottom: 0; }
+.validation-summary li { margin-bottom: 8px; }
+.validation-summary a { color: #912018; }
+.validation-summary[hidden] { display: none; }
+
+/* El HTML inicial es siempre un borrador, incluso si JavaScript no está disponible. */
+.final-only { display: none; }
+body[data-certificate-state="final"] .final-only { display: revert; }
+body[data-certificate-state="final"] .draft-only { display: none; }
+.draft-banner {
+  position: relative;
+  z-index: 1;
+  border: 1px solid var(--orange);
+  color: var(--orange-dark);
+  padding: 6px 8px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 800;
+}
+.certificate-page::after {
+  content: 'BORRADOR';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(-35deg);
+  font-size: 88px;
+  font-weight: 900;
+  color: #d95600;
+  opacity: 0.1;
+  z-index: 2;
+  pointer-events: none;
+}
+body[data-certificate-state="final"] .certificate-page::after { content: none; }
+.draft-signature { font-size: 14px; font-weight: 700; color: var(--muted); padding: 14px 0 6px; }
+
 .approval-box {
   border: 1px dashed var(--orange);
   background: var(--soft);
@@ -130,6 +171,8 @@ button.secondary {
 
 .checkline { display: flex; align-items: center; gap: 10px; margin: 0; }
 .checkline input { width: auto; margin: 0; }
+.approval-box .checkline + .checkline { margin-top: 14px; }
+.confirmation-note { margin-top: 10px; }
 .form-note { font-size: 12.5px; color: var(--muted); margin-top: -4px; }
 
 .materials-form {
@@ -157,7 +200,7 @@ button.secondary {
   border-top: 9px solid var(--orange);
 }
 
-.page-two { page-break-before: always; }
+.page-two { page-break-before: always; grid-column: 2; }
 
 .logo-watermark {
   position: absolute;
@@ -357,6 +400,7 @@ button.secondary {
   font-size: 13px;
   line-height: 1.34;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .technical-band {
@@ -427,6 +471,7 @@ button.secondary {
 .footer-verify .qr-img { width: 82px; height: 82px; }
 
 .annex-intro { position: relative; z-index: 1; }
+.annex-document { font-size: 12px; }
 
 .materials-table {
   position: relative;
@@ -486,10 +531,12 @@ button.secondary {
 @media (max-width: 1200px) {
   .app-shell { grid-template-columns: 1fr; }
   .form-panel { position: static; max-height: none; }
+  .page-two { grid-column: 1; }
 }
 
 @media print {
   body { background: #fff; }
+  * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .no-print { display: none !important; }
   .app-shell { display: block; padding: 0; }
   .certificate-page {
@@ -499,8 +546,33 @@ button.secondary {
     border-radius: 0;
     margin: 0;
     page-break-after: always;
+    padding: 11mm 13mm 10mm;
   }
   .page-two { page-break-before: always; }
   .certificate-page:last-child { page-break-after: auto; }
+  .draft-banner { padding: 4px 6px; margin-bottom: 8px; font-size: 10px; }
+  body[data-certificate-state="draft"] .certificate-page { padding-top: 8mm; }
+  .draft-signature { padding: 6px 0 4px; font-size: 12px; }
+  .lead, .annex-intro p { font-size: 12.5px; line-height: 1.4; margin: 8px 0 10px; }
+  .cert-body h3, .annex-intro h3, .system-notes h3 { font-size: 16px; margin: 12px 0 7px; }
+  .info-table div { min-height: 44px; padding: 7px 9px; }
+  .info-table span { font-size: 12px; }
+  .technical-band { margin-top: 10px; }
+  .technical-band div { padding: 8px; }
+  .technical-band span { font-size: 10.5px; }
+  .approval-stamp { margin-top: 10px; padding: 9px; }
+  .cert-footer { margin-top: 12px; break-inside: avoid; }
+  .script-signature { font-size: 28px; }
+  .signature strong { font-size: 14px; }
+  .signature span { font-size: 11px; }
+  .footer-verify .qr-img { width: 72px; height: 72px; }
+  .materials-table { font-size: 12px; }
+  .materials-table th, .materials-table td { padding: 8px; }
+  .materials-table td { padding-top: 7px; padding-bottom: 7px; }
+  .materials-table td:first-child { width: 84px; }
+  .system-notes { margin-top: 14px; }
+  .system-notes ul { font-size: 12px; margin: 8px 0; padding-left: 20px; }
+  .system-notes li { margin-bottom: 6px; }
+  .annex-footer { margin-top: 14px; }
   @page { size: letter; margin: 0; }
 }
